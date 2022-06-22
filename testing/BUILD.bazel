@@ -1,0 +1,6 @@
+load("//:agda.bzl", "agda")
+
+agda(
+    name = "agda-example",
+    inputs = ["a.agda"],
+)

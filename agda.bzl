@@ -2,11 +2,10 @@ load("agda_toolchain.bzl", "AGDA_TOOLCHAIN")
 
 def _agda_impl(ctx):
     toolchain = ctx.toolchains[AGDA_TOOLCHAIN]
-    compiler = toolchain.compiler.files.to_list()[0]
+    compiler = toolchain.compiler.files_to_run.executable
     inputs = ctx.files.inputs
     input = inputs[0]
     file_name = input.path
-    html_name = input.basename[:-len(input.extension)] + "html"
     out = ctx.actions.declare_directory("html")
     ctx.actions.run(
         mnemonic = "agda",

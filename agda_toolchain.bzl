@@ -1,5 +1,5 @@
 AGDA_TOOLCHAIN_TYPE = "agda-toolchain-type"
-AGDA_TOOLCHAIN = "//:agda-toolchain-type"
+AGDA_TOOLCHAIN = "//:%s" % AGDA_TOOLCHAIN_TYPE
 
 def _agda_toolchain_info(ctx):
     return [ platform_common.ToolchainInfo(
@@ -13,7 +13,6 @@ agda_toolchain_info = rule(
         "compiler": attr.label(
             allow_single_file = True,
             cfg = "exec",
-            # executable = True,
         ),
     },
 )

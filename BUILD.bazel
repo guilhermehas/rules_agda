@@ -1,28 +1,14 @@
 load("agda_toolchain.bzl", "agda_toolchain_info", "AGDA_TOOLCHAIN", "AGDA_TOOLCHAIN_TYPE")
-load("agda.bzl", "agda")
 
 toolchain_type(
     name = AGDA_TOOLCHAIN_TYPE,
     visibility = ["//visibility:public"],
 )
 
-filegroup(
-    name = "agdac",
-    srcs = ["@agda//:bin/agda"],
-    visibility = ["//visibility:public"],
-)
-
 agda_toolchain_info(
     name = "agda-nixos-toolchain-info",
-    # compiler = ":agdac"
     compiler = "@agda//:bin/agda"
 )
-
-# demo_toolchain_info(
-#     name = "demo_toolchain_info/x86_64-linux",
-#     cflags = ["--target-os=linux", "--target-arch=amd64"],
-#     compiler = "haskell",
-# )
 
 toolchain(
     name = "agda-nixos-toolchain",
@@ -34,28 +20,4 @@ toolchain(
     ],
     toolchain = ":agda-nixos-toolchain-info",
     toolchain_type = AGDA_TOOLCHAIN,
-)
-
-# toolchain(
-#     name = "demo_toolchain_linux_x86_32",
-#     exec_compatible_with = [
-#             "@bazel_tools//platforms:linux",
-#             "@bazel_tools//platforms:x86_32",
-#     ],
-#     target_compatible_with = [
-#             "@bazel_tools//platforms:linux",
-#             "@bazel_tools//platforms:x86_32",
-#     ],
-#     toolchain = ":demo_toolchain_info/i686-linux",
-#     toolchain_type = DEMO_TOOLCHAIN,
-# )
-
-# demo_rule(
-#     name = "demo",
-
-# )
-
-agda(
-    name = "agda-example",
-    inputs = ["a.agda"],
 )
