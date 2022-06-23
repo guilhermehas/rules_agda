@@ -4,16 +4,16 @@ def _agda_html_impl(ctx):
     toolchain = ctx.toolchains[AGDA_TOOLCHAIN]
     compiler = toolchain.compiler.files_to_run.executable
     inputs = ctx.files.inputs
-    input = inputs[0]
-    file_name = ctx.file.main_file.path
+    main_file = ctx.file.main_file
+    file_name = main_file.path
     out = ctx.actions.declare_directory("html")
     
     ctx.actions.run(
         mnemonic = "agda",
-        inputs = inputs + [ctx.file.main_file],
-        arguments = [ "--no-libraries", "-i", input.dirname, "--html", "--html-dir", out.path, file_name],
+        inputs = inputs + [main_file],
+        arguments = [ "--no-libraries", "-i", main_file.dirname, "--html", "--html-dir", out.path, file_name],
         executable = compiler,
-        outputs = [ out ],
+        outputs = [out],
     )
 
     return [
@@ -26,6 +26,7 @@ agda_html = rule(
         "inputs": attr.label_list(allow_files = [".agda", ".agda-lib"]),
         "main_file": attr.label(
             allow_single_file = [".agda"],
+            mandatory = True,
         ),
     },
     toolchains = [AGDA_TOOLCHAIN],

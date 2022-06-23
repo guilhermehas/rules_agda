@@ -2,7 +2,7 @@ load("//:agda.bzl", "agda_html")
 
 agda_html(
     name = "agda-example",
-    inputs = ["a.agda"],
+    inputs = [],
     main_file = "a.agda",
 )
 
