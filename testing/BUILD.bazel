@@ -10,4 +10,5 @@ agda_html(
     name = "agda-2files",
     inputs = ["a.agda"],
     main_file = "b.agda",
+    agda_lib = "testing.agda-lib",
 )
